@@ -1,8 +1,8 @@
 import 'package:wallper/model/categories.dart';
 
 String apikey = "563492ad6f917000010000013f9cd28c64cf4adb98fdc6bf57e08908";
-bool isPurchased = true;
-String page = '80';
+bool isPurchased = false;
+String page = '40';
 
 List<Categoriesmodel> getCatagories() {
   List<Categoriesmodel> catagories = new List();

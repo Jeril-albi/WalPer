@@ -48,7 +48,7 @@ android {
         applicationId "com.jerilalbi.wallper_pro"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 3
+        versionCode 4
         versionName flutterVersionName
     }
     signingConfigs {
@@ -61,9 +61,7 @@ android {
     }
     buildTypes {
         release {
-            shrinkResources false
-            minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 /*
