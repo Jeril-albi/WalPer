@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679832280284",
+    "project_id": "wallper-e5212",
+    "storage_bucket": "wallper-e5212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679832280284:android:90064725cd70a20ea3a819",
+        "android_client_info": {
+          "package_name": "com.jerilalbi.wallper_pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679832280284-bh1hu4s9g7ageqpa27skb24pite6bfp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuuRnrn7cCE3jrXjBT74NH74QiOpvC3Es"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679832280284-bh1hu4s9g7ageqpa27skb24pite6bfp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
