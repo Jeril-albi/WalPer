@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:wallper/data/contact_us.dart';
 import 'package:wallper/data/data.dart';
 import 'package:wallper/data/jeril.dart';
 import 'package:wallper/model/wallpaper.dart';
@@ -13,8 +11,7 @@ import 'package:flutter/services.dart';
 
 import 'ads.dart';
 
-class Search extends StatefulWidget{
-
+class Search extends StatefulWidget {
   final String searchQuery;
   Search({this.searchQuery});
 
@@ -22,7 +19,7 @@ class Search extends StatefulWidget{
   _search createState() => _search();
 }
 
-class _search extends State<Search>{
+class _search extends State<Search> {
   Ads advert = Ads();
   String query;
   TextEditingController searchController = new TextEditingController();
@@ -30,33 +27,34 @@ class _search extends State<Search>{
   List<Wallpapermodel> wallpapers = new List();
 
   searchWallpapers(String query) async {
-         var response = await http.get(
-           "https://api.pexels.com/v1/search?query=$query&per_page=$page&page=1",
-           headers: {"Authorization": apikey,},
-         );
+    var response = await http.get(
+      "https://api.pexels.com/v1/search?query=$query&per_page=$page&page=1",
+      headers: {
+        "Authorization": apikey,
+      },
+    );
 
-         Map<String, dynamic> jsonData = jsonDecode(response.body);
-         jsonData["photos"].forEach((element) {
-           Wallpapermodel wallpapermodel = new Wallpapermodel();
-           wallpapermodel = Wallpapermodel.fromMap(element);
-           wallpapers.add(wallpapermodel);
-         });
+    Map<String, dynamic> jsonData = jsonDecode(response.body);
+    jsonData["photos"].forEach((element) {
+      Wallpapermodel wallpapermodel = new Wallpapermodel();
+      wallpapermodel = Wallpapermodel.fromMap(element);
+      wallpapers.add(wallpapermodel);
+    });
 
-         setState(() {});
+    setState(() {});
   }
-
 
   @override
   void initState() {
-    isPurchased ? null :  Ads.mybanner.load();
-      searchWallpapers(widget.searchQuery);
-      super.initState();
-      searchController.text = widget.searchQuery;
+    isPurchased ? null : Ads.mybanner.load();
+    searchWallpapers(widget.searchQuery);
+    super.initState();
+    searchController.text = widget.searchQuery;
   }
 
   @override
-  void dispose(){
-    isPurchased ? null :  Ads.mybanner?.dispose();
+  void dispose() {
+    isPurchased ? null : Ads.mybanner?.dispose();
     isPurchased ? null : advert.closeInter();
     super.dispose();
   }
@@ -78,77 +76,90 @@ class _search extends State<Search>{
             child: Container(
               child: Column(
                 children: <Widget>[
-               Container(
-                  margin: EdgeInsets.symmetric(horizontal:24),
-                 padding: EdgeInsets.symmetric(horizontal: 24),
-                 decoration: BoxDecoration(
-                color: Color(0xfff5f8fd),
-                borderRadius: BorderRadius.circular(30),
-                 ),
-                  child: Row(
-                   children: <Widget>[
-                     Expanded(
-                       child: TextField(
-                         textInputAction: TextInputAction.search,
-                         onSubmitted: (value){
-                           if(searchController.text.toLowerCase() == about){
-                             Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) => Jeril()
-                             ));
-                           } else  {
-                             Navigator.push(context, MaterialPageRoute(
-                                 builder: (context) =>
-                                     Search(
-                                       searchQuery: searchController.text,
-                                     )
-                             ));
-                           }
-                         },
-                        controller: searchController,
-                         decoration: InputDecoration(
-                          hintText: "Search Wallpapers",
-                          border: InputBorder.none,
-                      ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: Color(0xfff5f8fd),
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                  ),
-                     Container( child:  Icon(Icons.search), ),
-                ],
-               ),
-               ),
-                  new SizedBox(height: 16,),
-                  Wallpaperlist( wallpapers, context),
-                  isPurchased ? SizedBox(height: 1,) :
-                  InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => Premium()
-                      ));
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 150,
-                      width: MediaQuery.of(context).size.width,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                                color: Colors.black
-                            )
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            textInputAction: TextInputAction.search,
+                            onSubmitted: (value) {
+                              if (searchController.text.toLowerCase() ==
+                                  about) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Jeril()));
+                              } else {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => Search(
+                                              searchQuery:
+                                                  searchController.text,
+                                            )));
+                              }
+                            },
+                            controller: searchController,
+                            decoration: InputDecoration(
+                              hintText: "Search Wallpapers",
+                              border: InputBorder.none,
+                            ),
+                          ),
                         ),
-                        child: Text("  Upgrade to King version for more wallpapers  ",style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w900),),
-                      ),
+                        Container(
+                          child: Icon(Icons.search),
+                        ),
+                      ],
                     ),
                   ),
+                  new SizedBox(
+                    height: 16,
+                  ),
+                  Wallpaperlist(wallpapers, context),
+                  isPurchased
+                      ? SizedBox(
+                          height: 1,
+                        )
+                      : InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Premium()));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 150,
+                            width: MediaQuery.of(context).size.width,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: Colors.black)),
+                              child: Text(
+                                "  Upgrade to King version for more wallpapers  ",
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w900),
+                              ),
+                            ),
+                          ),
+                        ),
                 ],
               ),
             ),
           ),
-          isPurchased ? SizedBox(height: 1,) :
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: advert.showBanner(),
-          ),
+          isPurchased
+              ? SizedBox(
+                  height: 1,
+                )
+              : Align(
+                  alignment: Alignment.bottomCenter,
+                  child: advert.showBanner(),
+                ),
         ],
       ),
     );

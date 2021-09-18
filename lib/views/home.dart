@@ -36,7 +36,7 @@ class _home extends State<Home> {
 
   trendingWallpapers() async {
     var response = await http.get(
-        "https://api.pexels.com/v1/search?query=mobile wallpapers&per_page=$page&page=${now.day}",
+        'https://api.pexels.com/v1/search?query=mobile wallpapers&per_page=$page&page=${now.day}',
         headers: {
           "Authorization": apikey,
         });
@@ -65,11 +65,7 @@ class _home extends State<Home> {
                 TextButton(
                   child: Text("Try Again"),
                   onPressed: () {
-                    setState(() {
-                      if (connection != ConnectivityResult.none) {
-                        Navigator.pop(context);
-                      }
-                    });
+                    Connectivity().onConnectivityChanged.listen((event) {});
                   },
                 ),
                 TextButton(
@@ -89,10 +85,10 @@ class _home extends State<Home> {
   @override
   void initState() {
     PurchaseApi.updatePurchaseStatus();
-    trendingWallpapers();
     catagories = getCatagories();
     isPurchased ? null : Ads.mybanner.load();
     connection(context);
+    trendingWallpapers();
     super.initState();
   }
 
