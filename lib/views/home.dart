@@ -65,7 +65,9 @@ class _home extends State<Home> {
                 TextButton(
                   child: Text("Try Again"),
                   onPressed: () {
-                    Connectivity().onConnectivityChanged.listen((event) {});
+                    Connectivity().onConnectivityChanged.listen((event) {
+                      Navigator.pop(context);
+                    });
                   },
                 ),
                 TextButton(
