@@ -1,48 +1,68 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:unity_ads_plugin/unity_ads.dart';
 import 'package:wallper/data/data.dart';
 import 'package:wallper/model/wallpaper.dart';
 import 'package:wallper/views/image_view.dart';
 import 'package:wallper/views/ads.dart';
 
-Widget brandName(){
+Widget brandName() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      Text("Wal",style: TextStyle(color: Colors.black87),),
-      Text("Per",style: TextStyle(color: Colors.redAccent[700]),),
+      Text(
+        "Wal",
+        style: TextStyle(color: Colors.black87),
+      ),
+      Text(
+        "Per",
+        style: TextStyle(color: Colors.redAccent[700]),
+      ),
     ],
   );
 }
 
-Widget premiumtitle(){
+Widget premiumtitle() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      Text("Wal",style: TextStyle(color: Colors.black87),),
-      Text("Per",style: TextStyle(color: Colors.redAccent[700]),),
+      Text(
+        "Wal",
+        style: TextStyle(color: Colors.black87),
+      ),
+      Text(
+        "Per",
+        style: TextStyle(color: Colors.redAccent[700]),
+      ),
       Container(
-        height: 35,
-        width: 35,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Image.asset('assets/premium.gif'),
-       ],)
-      )
+          height: 35,
+          width: 35,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset('assets/premium.gif'),
+            ],
+          ))
     ],
   );
 }
 
-Widget premiumCatgorytitle(){
+Widget premiumCatgorytitle() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      Text("Wal",style: TextStyle(color: Colors.black87),),
-      Text("Per",style: TextStyle(color: Colors.redAccent[700]),),
-      SizedBox(width: 5,),
+      Text(
+        "Wal",
+        style: TextStyle(color: Colors.black87),
+      ),
+      Text(
+        "Per",
+        style: TextStyle(color: Colors.redAccent[700]),
+      ),
+      SizedBox(
+        width: 5,
+      ),
       Container(
         height: 25,
         width: 25,
@@ -54,112 +74,8 @@ Widget premiumCatgorytitle(){
 
 Ads advert = Ads();
 
-Widget Wallpaperlist(List<Wallpapermodel> wallpapers, context){
+Widget Wallpaperlist(List<Wallpapermodel> wallpapers, context) {
   int load = 1;
-  return Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          crossAxisCount: 2,
-          childAspectRatio: 0.6,
-          mainAxisSpacing: 6,
-          crossAxisSpacing: 6,
-          children: wallpapers.map((wallpaper){
-          return GridTile(
-            child: GestureDetector(
-              onTap: (){
-                if(isPurchased){
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ImageView(
-                        imgurl: wallpaper.src.portrait,)
-                  ));
-                } else {
-                  if (load == 1) {
-                    advert.loadInter();
-                  }
-                  if (load == 3) {
-                    load = 0;
-                    advert.showInter();
-                  }
-                  load = load + 1;
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) =>
-                          ImageView(
-                            imgurl: wallpaper.src.portrait,)
-                  ));
-                }
-              },
-              child: Hero(
-                tag:  wallpaper.src.portrait,
-                child: Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                    child:  FadeInImage(
-                      image: wallpaper.src.portrait == null ? AssetImage("assets/loadimg.jpg") : NetworkImage(wallpaper.src.portrait),
-                      fit: BoxFit.cover,
-                      placeholder: AssetImage("assets/loadimg.jpg"),
-                    )
-                ),
-                ),
-              ),
-            ),
-          );
-          }).toList(),
-        ),
-      );
-}
-
-bool adLoaded = false;
-
-dialog(BuildContext context){
-  return showDialog(context: context, builder: (context) {
-    return AlertDialog(
-      title: Text("Premium wallpapers are special !"),
-      content: Text("Open it by watching an ad"),
-      actions: <Widget>[
-        TextButton(
-          child: Text("Yes"),
-          onPressed: (){
-            adLoaded ? rewardedAd.show(onUserEarnedReward: reward) : toastMsg();
-          },
-        ),
-
-        TextButton(
-          onPressed: (){ Navigator.pop(context);},
-          child: Text("No"),
-        ),
-      ],
-    );
-  });
-}
-
-toastMsg(){
-  return Fluttertoast.showToast(msg: 'Try Again');
-}
-
-
-OnUserEarnedRewardCallback reward;
-RewardedAd rewardedAd;
- void loadReward(){
-  RewardedAd.load(
-       adUnitId: 'ca-app-pub-3403270527076927/6565330545',
-      //adUnitId: RewardedAd.testAdUnitId,
-      request: Ads.request,
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-          onAdLoaded: (ad){
-            rewardedAd =ad;
-            adLoaded = true;
-            },
-          onAdFailedToLoad: (error){
-            loadReward();
-            adLoaded = false;
-          }
-      )
-  );
-}
-
-Widget Premiumlist(List<Wallpapermodel> wallpapers, context){
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 16),
     child: GridView.count(
@@ -169,39 +85,43 @@ Widget Premiumlist(List<Wallpapermodel> wallpapers, context){
       childAspectRatio: 0.6,
       mainAxisSpacing: 6,
       crossAxisSpacing: 6,
-      children: wallpapers.map((wallpaper){
+      children: wallpapers.map((wallpaper) {
         return GridTile(
           child: GestureDetector(
-            onTap: (){
-              loadReward();
-              isPurchased ? Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => ImageView(
-                    imgurl: wallpaper.src.portrait,
-                  )
-              )) : dialog(context);
-              OnUserEarnedRewardCallback rewardCallback = (ad,itm){
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => ImageView(
-                      imgurl: wallpaper.src.portrait,
-                    )
-                ));
-                adLoaded = false;
-                loadReward();
-              };
-              reward = rewardCallback;
+            onTap: () {
+              if (isPurchased) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageView(
+                              imgurl: wallpaper.src.portrait,
+                            )));
+              } else {
+                if (load == 3) {
+                  load = 0;
+                  advert.showInter(context);
+                }
+                load = load + 1;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageView(
+                              imgurl: wallpaper.src.portrait,
+                            )));
+              }
             },
             child: Hero(
-              tag:  wallpaper.src.portrait,
+              tag: wallpaper.src.portrait,
               child: Container(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: FadeInImage(
-                      image: wallpaper.src.portrait == null ? AssetImage("assets/loadimg.jpg") : NetworkImage(wallpaper.src.portrait),
+                      image: wallpaper.src.portrait == null
+                          ? AssetImage("assets/loadimg.jpg")
+                          : NetworkImage(wallpaper.src.portrait),
                       fit: BoxFit.cover,
                       placeholder: AssetImage("assets/loadimg.jpg"),
-                    )
-                ),
+                    )),
               ),
             ),
           ),
@@ -211,3 +131,99 @@ Widget Premiumlist(List<Wallpapermodel> wallpapers, context){
   );
 }
 
+dialog(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Premium wallpapers are special !"),
+          content: Text("Open it by watching an ad"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Yes"),
+              onPressed: () {
+                UnityAds.isReady(placementId: 'Rewarded_Android').then((value) {
+                  if (value == true) {
+                    UnityAds.showVideoAd(
+                        placementId: "Rewarded_Android", listener: adListner);
+                  } else {
+                    toastMsg();
+                  }
+                });
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("No"),
+            ),
+          ],
+        );
+      });
+}
+
+toastMsg() {
+  return Fluttertoast.showToast(msg: 'Try Again');
+}
+
+var adListner;
+
+Widget PremiumList(List<Wallpapermodel> wallpapers, context) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    child: GridView.count(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      crossAxisCount: 2,
+      childAspectRatio: 0.6,
+      mainAxisSpacing: 6,
+      crossAxisSpacing: 6,
+      children: wallpapers.map((wallpaper) {
+        return GridTile(
+          child: GestureDetector(
+            onTap: () {
+              isPurchased
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageView(
+                                imgurl: wallpaper.src.portrait,
+                              )))
+                  : dialog(context);
+              var listner = (UnityAdState state, args) {
+                if (state == UnityAdState.complete) {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageView(
+                                imgurl: wallpaper.src.portrait,
+                              )));
+                }
+                if (state == UnityAdState.skipped) {
+                  Navigator.pop(context);
+                }
+              };
+              adListner = listner;
+            },
+            child: Hero(
+              tag: wallpaper.src.portrait,
+              child: Container(
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: FadeInImage(
+                      image: wallpaper.src.portrait == null
+                          ? AssetImage("assets/loadimg.jpg")
+                          : NetworkImage(wallpaper.src.portrait),
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage("assets/loadimg.jpg"),
+                    )),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    ),
+  );
+}

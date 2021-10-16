@@ -248,14 +248,6 @@ class _premium extends State<Premium> {
     searchWallpapers();
     fetchOffers();
     super.initState();
-    isPurchased ? null : Ads.mybanner.dispose();
-    isPurchased ? null : advert.loadReward();
-  }
-
-  @override
-  void dispose() {
-    isPurchased ? null : advert.closeReward();
-    super.dispose();
   }
 
   searchWallpapers() async {
@@ -310,7 +302,7 @@ class _premium extends State<Premium> {
               SizedBox(
                 height: 16,
               ),
-              Premiumlist(wallpapers, context),
+              PremiumList(wallpapers, context),
               isPurchased
                   ? SizedBox(
                       height: 1,

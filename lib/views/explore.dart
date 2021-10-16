@@ -42,14 +42,7 @@ class _explore extends State<Explore> {
 
   @override
   void initState() {
-    isPurchased ? null : Ads.mybanner.dispose();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    isPurchased ? null : advert.closeInter();
-    super.dispose();
   }
 
   Future<void> reviewApp() async {
@@ -179,12 +172,9 @@ class _explore extends State<Explore> {
                                           imglink: img['url'],
                                         )));
                           } else {
-                            if (load == 3) {
-                              advert.loadInter();
-                            }
                             if (load == 5) {
                               load = 0;
-                              advert.showInter();
+                              advert.showInter(context);
                             }
                             load = load + 1;
                             Navigator.push(

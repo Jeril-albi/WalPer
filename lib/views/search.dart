@@ -46,17 +46,9 @@ class _search extends State<Search> {
 
   @override
   void initState() {
-    isPurchased ? null : Ads.mybanner.load();
     searchWallpapers(widget.searchQuery);
     super.initState();
     searchController.text = widget.searchQuery;
-  }
-
-  @override
-  void dispose() {
-    isPurchased ? null : Ads.mybanner?.dispose();
-    isPurchased ? null : advert.closeInter();
-    super.dispose();
   }
 
   @override

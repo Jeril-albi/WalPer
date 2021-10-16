@@ -48,7 +48,7 @@ android {
         applicationId "com.jerilalbi.wallper_pro"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 4
+        versionCode 5
         versionName flutterVersionName
     }
     signingConfigs {
@@ -63,10 +63,10 @@ android {
         release {
             shrinkResources false
             minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
-/*
+
     splits {
         abi {
             enable true
@@ -74,7 +74,7 @@ android {
             include "x86", "x86_64", "armeabi", "armeabi-v7a", "arm64-v8a"
             universalApk false
         }
-    } */
+    } 
 }
 
 flutter {

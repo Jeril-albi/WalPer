@@ -88,17 +88,10 @@ class _home extends State<Home> {
   void initState() {
     PurchaseApi.updatePurchaseStatus();
     catagories = getCatagories();
-    isPurchased ? null : Ads.mybanner.load();
     connection(context);
     trendingWallpapers();
+    advert.initialize();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    isPurchased ? null : Ads.mybanner?.dispose();
-    isPurchased ? null : advert.closeInter();
-    super.dispose();
   }
 
   Future<bool> onBackPress() {

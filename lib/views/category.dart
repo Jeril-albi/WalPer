@@ -42,15 +42,7 @@ class _category extends State<Category> {
   @override
   void initState() {
     searchWallpapers(widget.categoriesName);
-    isPurchased ? null : Ads.mybanner.load();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    isPurchased ? null : Ads.mybanner?.dispose();
-    isPurchased ? null : advert.closeInter();
-    super.dispose();
   }
 
   @override
