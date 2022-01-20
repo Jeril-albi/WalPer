@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -110,6 +109,7 @@ class _home extends State<Home> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: isPurchased ? premiumtitle() : brandName(),
         elevation: 0,
       ),

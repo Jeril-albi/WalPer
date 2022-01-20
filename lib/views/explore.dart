@@ -98,6 +98,7 @@ class _explore extends State<Explore> {
         appBar: AppBar(
           title: premiumtitle(),
           elevation: 0,
+          backgroundColor: Colors.white,
           actions: [
             GestureDetector(
               onTap: () {

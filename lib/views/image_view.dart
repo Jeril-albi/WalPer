@@ -2,7 +2,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wallpaper_manager/wallpaper_manager.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:image_downloader/image_downloader.dart';
@@ -17,7 +17,7 @@ class ImageView extends StatefulWidget {
 
 class _Imageview extends State<ImageView> {
   String _platformversion;
-  String _wallpaperfile;
+  bool _wallpaperfile;
 
   @override
   void initState() {
@@ -45,16 +45,16 @@ class _Imageview extends State<ImageView> {
 
   Future<void> home_wallpaper() async {
     setState(() {
-      _wallpaperfile = 'Loading';
+      _wallpaperfile = false;
     });
-    String result;
+    bool result;
     var file = await DefaultCacheManager().getSingleFile(widget.imgurl);
 
     try {
       result = await WallpaperManager.setWallpaperFromFile(
           file.path, WallpaperManager.HOME_SCREEN);
     } on PlatformException {
-      result = 'Failed to get wallpaper.';
+      result = false;
     }
 
     if (!mounted) return;
@@ -66,16 +66,16 @@ class _Imageview extends State<ImageView> {
 
   Future<void> lock_wallpaper() async {
     setState(() {
-      _wallpaperfile = 'Loading';
+      _wallpaperfile = false;
     });
-    String result;
+    bool result;
     var file = await DefaultCacheManager().getSingleFile(widget.imgurl);
 
     try {
       result = await WallpaperManager.setWallpaperFromFile(
           file.path, WallpaperManager.LOCK_SCREEN);
     } on PlatformException {
-      result = 'Failed to get wallpaper.';
+      result = false;
     }
 
     if (!mounted) return;
@@ -87,16 +87,16 @@ class _Imageview extends State<ImageView> {
 
   Future<void> both_wallpaper() async {
     setState(() {
-      _wallpaperfile = 'Loading';
+      _wallpaperfile = false;
     });
-    String result;
+    bool result;
     var file = await DefaultCacheManager().getSingleFile(widget.imgurl);
 
     try {
       result = await WallpaperManager.setWallpaperFromFile(
-          file.path, WallpaperManager.BOTH_SCREENS);
+          file.path, WallpaperManager.BOTH_SCREEN);
     } on PlatformException {
-      result = 'Failed to get wallpaper.';
+      result = false;
     }
 
     if (!mounted) return;

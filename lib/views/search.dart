@@ -60,6 +60,7 @@ class _search extends State<Search> {
       appBar: AppBar(
         title: isPurchased ? premiumtitle() : brandName(),
         elevation: 0.0,
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
       body: Stack(

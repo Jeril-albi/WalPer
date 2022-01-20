@@ -63,18 +63,18 @@ android {
         release {
             shrinkResources false
             minifyEnabled false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 
-    splits {
+   /* splits {
         abi {
             enable true
             reset()
             include "x86", "x86_64", "armeabi", "armeabi-v7a", "arm64-v8a"
             universalApk false
         }
-    } 
+    } */
 }
 
 flutter {

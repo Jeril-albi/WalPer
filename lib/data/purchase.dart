@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:purchases_flutter/offering_wrapper.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:wallper/data/data.dart';
 

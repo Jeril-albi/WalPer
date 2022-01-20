@@ -53,6 +53,7 @@ class _category extends State<Category> {
       appBar: AppBar(
         title: isPurchased ? premiumtitle() : brandName(),
         elevation: 0.0,
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
       ),
       body: Stack(

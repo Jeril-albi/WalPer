@@ -33,8 +33,8 @@ dependencies:
   unity_ads_plugin:
   firebase_core:
   flutter_cache_manager:
-  wallpaper_manager:
-  image_downloader:
+  flutter_wallpaper_manager: ^0.0.3
+  image_downloader: ^0.31.0
   url_launcher:
   fluttertoast:
   device_info:

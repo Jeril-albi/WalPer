@@ -12,9 +12,6 @@ import 'package:wallper/data/data.dart';
 import 'package:wallper/views/ads.dart';
 import 'package:wallper/widget/widget.dart';
 
-//cloud_firestore: ^^0.14.1+3
-//firebase_core: ^0.5.0+1
-
 final String productID = 'walper_weekly';
 
 class Premium extends StatefulWidget {
@@ -278,6 +275,7 @@ class _premium extends State<Premium> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: premiumCatgorytitle(),
         actions: [
           GestureDetector(
