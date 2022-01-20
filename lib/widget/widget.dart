@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:unity_ads_plugin/unity_ads_plugin.dart';
+import 'package:unity_ads_plugin/unity_ads.dart';
 import 'package:wallper/data/data.dart';
 import 'package:wallper/model/wallpaper.dart';
 import 'package:wallper/views/image_view.dart';
@@ -131,9 +131,6 @@ Widget Wallpaperlist(List<Wallpapermodel> wallpapers, context) {
   );
 }
 
-bool adLoaded = false;
-var adComplete;
-var adSkipped;
 dialog(BuildContext context) {
   return showDialog(
       context: context,
@@ -144,21 +141,15 @@ dialog(BuildContext context) {
           actions: <Widget>[
             TextButton(
               child: Text("Yes"),
-              onPressed: () async {
-                await UnityAds.load(
-                    placementId: 'Rewarded_Android',
-                    onComplete: (s) {
-                      adLoaded = true;
-                    });
-
-                if (adLoaded == true) {
-                  UnityAds.showVideoAd(
-                      placementId: "Rewarded_Android",
-                      onComplete: adComplete,
-                      onSkipped: adSkipped);
-                } else {
-                  toastMsg();
-                }
+              onPressed: () {
+                UnityAds.isReady(placementId: 'Rewarded_Android').then((value) {
+                  if (value == true) {
+                    UnityAds.showVideoAd(
+                        placementId: "Rewarded_Android", listener: adListner);
+                  } else {
+                    toastMsg();
+                  }
+                });
               },
             ),
             TextButton(
@@ -176,7 +167,7 @@ toastMsg() {
   return Fluttertoast.showToast(msg: 'Try Again');
 }
 
-//var adListner;
+var adListner;
 
 Widget PremiumList(List<Wallpapermodel> wallpapers, context) {
   return Container(
@@ -200,23 +191,21 @@ Widget PremiumList(List<Wallpapermodel> wallpapers, context) {
                                 imgurl: wallpaper.src.portrait,
                               )))
                   : dialog(context);
-
-              var complete = () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ImageView(
-                              imgurl: wallpaper.src.portrait,
-                            )));
+              var listner = (UnityAdState state, args) {
+                if (state == UnityAdState.complete) {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageView(
+                                imgurl: wallpaper.src.portrait,
+                              )));
+                }
+                if (state == UnityAdState.skipped) {
+                  Navigator.pop(context);
+                }
               };
-
-              var skip = () {
-                Navigator.pop(context);
-              };
-
-              adComplete = complete;
-              adSkipped = skip;
+              adListner = listner;
             },
             child: Hero(
               tag: wallpaper.src.portrait,
