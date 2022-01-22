@@ -182,7 +182,6 @@ class _home extends State<Home> {
                         GestureDetector(
                           onTap: () {
                             scaffoldKey.currentState.openDrawer();
-                            print("Wallpapers = ${wallpapers[1].src.original}");
                           },
                           child: Container(
                             width: 40,
@@ -204,37 +203,9 @@ class _home extends State<Home> {
                         SizedBox(
                           width: mediaquery.width * .25,
                         ),
-                        Text(
-                          "Wal",
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              shadows: [
-                                Shadow(color: Colors.white, blurRadius: 10)
-                              ]),
-                        ),
-                        Text(
-                          "Per",
-                          style: TextStyle(
-                              color: Colors.redAccent[700],
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              shadows: [
-                                Shadow(color: Colors.white, blurRadius: 10)
-                              ]),
-                        ),
                         isPurchased
-                            ? Container(
-                                height: 35,
-                                width: 35,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.asset('assets/premium.gif'),
-                                  ],
-                                ))
-                            : Text("")
+                            ? newPremiumTitle(MainAxisAlignment.start)
+                            : newTitle(MainAxisAlignment.start)
                       ],
                     ),
                   ),

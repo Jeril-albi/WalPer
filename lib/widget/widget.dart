@@ -48,6 +48,63 @@ Widget premiumtitle() {
   );
 }
 
+newTitle(MainAxisAlignment align) {
+  return Row(
+    mainAxisAlignment: align,
+    children: [
+      Text(
+        "Wal",
+        style: TextStyle(
+            color: Colors.black87,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            shadows: [Shadow(color: Colors.white, blurRadius: 10)]),
+      ),
+      Text(
+        "Per",
+        style: TextStyle(
+            color: Colors.redAccent[700],
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            shadows: [Shadow(color: Colors.white, blurRadius: 10)]),
+      ),
+    ],
+  );
+}
+
+newPremiumTitle(MainAxisAlignment align) {
+  return Row(
+    mainAxisAlignment: align,
+    children: [
+      Text(
+        "Wal",
+        style: TextStyle(
+            color: Colors.black87,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            shadows: [Shadow(color: Colors.white, blurRadius: 10)]),
+      ),
+      Text(
+        "Per",
+        style: TextStyle(
+            color: Colors.redAccent[700],
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            shadows: [Shadow(color: Colors.white, blurRadius: 10)]),
+      ),
+      Container(
+          height: 35,
+          width: 35,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset('assets/premium.gif'),
+            ],
+          ))
+    ],
+  );
+}
+
 Widget premiumCatgorytitle() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
